@@ -1,0 +1,292 @@
+
+
+
+div.selectPageButtons {
+    margin-bottom: 10px;
+}
+div.selectPageButtons button#select_allDiscords {
+    font-size: 16px;
+    padding: 5px;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+div.main div.selectPage {
+    /*background-color: #101010;*/
+}
+
+
+div.main div.selectPage {}
+
+div.main div.selectPage div.search_settings {
+    display: inline-flex;
+    min-width: 80%;
+}
+div.main div.selectPage div.search_settings div.column_separator_to_right {
+    border-right: 2px solid #db0000;
+    padding-right: 10px;
+}
+div.main div.selectPage div.search_settings div.separator {
+    height: 150px;
+    width: 2px;
+    /*background-color: #dbbd00;*/
+    overflow: hidden;
+}
+
+
+div.main div.selectPage div.search_settings .filter_section_title {
+    text-decoration: underline;
+    /*text-align: left;*/
+}
+div.main div.selectPage div.search_settings div.search_setting_div {
+    flex: 1;
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin: 3px;
+}
+
+div.main div.selectPage div.search_settings div.search_setting_div div.filter_options_checkboxes {
+    display: inline-flex;
+}
+div.main div.selectPage div.search_settings div.search_setting_div ul.select_in_list {
+    text-align: left;
+}
+div.main div.selectPage div.search_settings div.search_setting_div li {
+    list-style: none;
+}
+div.main div.selectPage div.search_settings div.search_setting_div li.inline > p.text {
+    display: inline-flex;
+    margin: 0px;
+    padding: 0px;
+    vertical-align:super;
+}
+div.main div.selectPage input.input_query {
+    width: 30vw;
+    font-size: 20px;
+    font-family: consolas;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+}
+div.main div.selectPage select.input_select {
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    font-family: calibri;
+}
+
+div.main div.selectPage button.all_discords_query_confirmButton {
+    font-size: 30px;
+    font-family: consolas;
+}
+
+
+
+input.checkbox_1 {
+    margin-right: 8px;
+    width: 20px;
+    height: 20px;
+}
+
+
+
+
+
+
+
+
+#all_discords_list {
+    margin: 0px auto;
+    width: 100%;
+    font-family: calibri;
+}
+
+#all_discords_list > div.guild {
+    border: solid 2px #FFF;
+    overflow-wrap: break-word;
+}
+#all_discords_list > div.certified {
+    border: solid 2px rgb(0, 225, 0);
+}
+
+#all_discords_list div.guild.hidden_discord {
+    display: none;
+}
+
+#all_discords_list div.guild div.content_left {
+    min-width: 250px;
+    max-width: 255px;
+}
+#all_discords_list div.guild div.guild_informations div.info{
+    text-align: center;
+    margin: 0px auto;
+}
+
+#all_discords_list div.guild div.guild_informations div.info .guild_icon_div {
+    width: fit-content;
+    height: fit-content;
+    border: solid 2px white;
+    border-radius: 100%;
+    margin: 0px auto;
+}
+#all_discords_list div.guild div.guild_informations div.info div.guild_icon_div img.guild_icon_img {
+    border-radius: 100%;
+    pointer-events: none;
+    width: 10vh;
+    vertical-align: middle;
+}
+#all_discords_list div.guild div.guild_informations div.info div.guild_icon_div.not_added {
+    border: solid 2px #bfbfbf;
+}
+#all_discords_list div.guild div.guild_informations div.info .guild_icon_div.not_added .guild_icon_img {
+    -webkit-filter : saturate(0%) blur(2px); /* Chrome, Safari, Opera */
+    filter : saturate(0%) blur(2px);
+    transition: 0.3s all;
+}
+#all_discords_list div.guild:hover div.guild_informations div.info .guild_icon_div.not_added .guild_icon_img {
+    -webkit-filter : saturate(100%) blur(px); /* Chrome, Safari, Opera */
+    filter : saturate(100%) blur(0px);
+    transition: 0.3s all;
+
+}
+
+#all_discords_list div.guild div.guild_informations div.info div.name .guild_name {
+    margin: 0px;
+    font-size: 2.5vh;
+}
+#all_discords_list div.guild div.guild_buttons div.button {
+    border-radius: 500px;
+    padding:5px;
+    margin: 5px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 2.5vh;
+    cursor: pointer;
+    transition: 0.5s all;
+    font-weight: bold;
+    
+    /* background: linear-gradient(to left, transparent 50%, teal 50%); */
+}
+#all_discords_list div.guild div.guild_buttons div.button_join_guild {
+    border: solid 2px #dbbd00;
+    background: #dbbe0055;
+    background-size: 200%;
+    background-position: left;
+}
+#all_discords_list div.guild div.guild_buttons div.button_private_guild {
+    border: solid 2px #db0000;
+    background: #db000055;
+    background-size: 200%;
+    background-position: left;
+    cursor: not-allowed;
+}
+#all_discords_list div.guild div.guild_buttons div.button_invalidURL_guild {
+    border: solid 2px #858585;
+    /*background: #85858555;*/
+    background-size: 200%;
+    background-position: left;
+    color: #dadada;
+}
+#all_discords_list div.guild div.guild_buttons div.button_join_guild:hover {
+    transform: translate(0px, -5px);
+    background-position: left;
+}
+
+#all_discords_list div.guild div.guild_buttons div.button_manage_guild:hover {
+    background: #ffe22269;
+}
+
+
+#all_discords_list div.guild div.content_right {
+    margin: 5px;
+}
+#all_discords_list div.guild div.content_right div.guild_informations {
+    padding: 5px;
+}
+#all_discords_list div.guild div.content_right div.separator {
+    background-color: #ffffff;
+    height: 1px;
+    margin: 10px;
+}
+#all_discords_list div.guild div.content_right div.developer_mode{
+    padding: 5px;
+}
+#all_discords_list div.guild div.content_right div.developer_mode h3.title{
+    margin: 0px;
+    margin-bottom: 10px;
+    text-align: center;
+    text-decoration: underline;
+}
+#all_discords_list div.guild div.content_right div.guild_informations div {
+    margin-bottom: 5px;
+}
+#all_discords_list div.guild div.content_right div.bold {
+    font-weight: bold;
+}
+#all_discords_list div.guild div.content_right div.big {
+    font-size: 20px;
+}
+#all_discords_list div.guild div.content_right .mini_info{
+    background-color: #dcbf0055;
+    max-width: fit-content;
+    padding: 1px 8px 1px 8px;
+    border-radius: 50px;
+    font-family: consolas;
+}
+#all_discords_list div.guild div.content_right * .info{
+    font-family: consolas;
+    background-color: #16bcf467;
+    padding: 1px 5px 1px 5px;
+    border-radius: 50px;
+}
+
+
+
+@media screen and (min-width: 801px) { /* PC */
+    body {
+        background-attachment: fixed;
+    }
+
+    #all_discords_list > div.guild {
+        display: inline-flex;
+        background-color: #36393F;
+        color: white;
+        /* max-width: 700px; */
+        /* min-width: 200px; */
+        /* width: fit-content; */
+        width: 500px;
+        padding: 10px;
+        margin: 20px;
+        border-radius: 10px;
+        
+    }
+    
+}
+
+
+@media screen and (max-width: 800px) { /* Mobile */
+    
+    #toasts {
+        font-size: 5vw;
+    }
+
+    #all_discords_list > div.guild {
+        display: block;
+        background-color: #36393F;
+        color: white;
+        /* max-width: 700px; */
+        /* min-width: 200px; */
+        /* width: fit-content; */
+        padding: 10px;
+        margin: 5px 30px 5px 30px;
+        margin: 10px auto;
+        border-radius: 10px;
+    }
+    #all_discords_list div.guild div.guild_buttons div.button {
+        width: 20vh;
+        margin: 0px auto;
+    }
+
+}

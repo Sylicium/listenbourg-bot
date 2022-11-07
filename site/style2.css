@@ -1,0 +1,185 @@
+
+
+
+
+body {
+    background-color: #001220;
+    background: linear-gradient(-105deg, #009acc, #363795);
+    background-attachment: fixed;
+    font-family: calibri;
+}
+
+
+
+
+
+div.main div.selectPage div.discords_list {
+    margin: 0px auto;
+    width: 100%;
+}
+
+div.main div.selectPage div.discords_list div.guild div.content_left {
+    min-width: 250px;
+}
+div.main div.selectPage div.discords_list div.guild div.guild_informations div.info{
+    text-align: center;
+    margin: 0px auto;
+}
+
+div.main div.selectPage div.discords_list div.guild div.guild_informations div.info .guild_icon_div {
+    width: fit-content;
+    height: fit-content;
+    border: solid 2px white;
+    border-radius: 100%;
+    margin: 0px auto;
+}
+div.main div.selectPage div.discords_list div.guild div.guild_informations div.info div.guild_icon_div img.guild_icon_img {
+    border-radius: 100%;
+    pointer-events: none;
+    width: 10vh;
+    vertical-align: middle;
+}
+div.main div.selectPage div.discords_list div.guild div.guild_informations div.info div.guild_icon_div.not_added {
+    border: solid 2px #bfbfbf;
+}
+div.main div.selectPage div.discords_list div.guild div.guild_informations div.info .guild_icon_div.not_added .guild_icon_img {
+    -webkit-filter : saturate(0%) blur(2px); /* Chrome, Safari, Opera */
+    filter : saturate(0%) blur(2px);
+    transition: 0.3s all;
+}
+div.main div.selectPage div.discords_list div.guild:hover div.guild_informations div.info .guild_icon_div.not_added .guild_icon_img {
+    -webkit-filter : saturate(100%) blur(px); /* Chrome, Safari, Opera */
+    filter : saturate(100%) blur(0px);
+    transition: 0.3s all;
+
+}
+
+div.main div.selectPage div.discords_list div.guild div.guild_informations div.info div.name .guild_name {
+    margin: 0px;
+    font-size: 2.5vh;
+}
+div.main div.selectPage div.discords_list div.guild div.guild_buttons div.button {
+    border-radius: 500px;
+    padding:5px;
+    margin: 5px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 2.5vh;
+    cursor: pointer;
+    transition: 0.5s all;
+    font-weight: bold;
+    
+    /* background: linear-gradient(to left, transparent 50%, teal 50%); */
+}
+div.main div.selectPage div.discords_list div.guild div.guild_buttons div.button_join_guild {
+    border: solid 2px #dbbd00;
+    background: #dbbe0055;
+    background-size: 200%;
+    background-position: left;
+}
+div.main div.selectPage div.discords_list div.guild div.guild_buttons div.button:hover {
+    transform: translate(0px, -5px);
+    background-position: left;
+}
+
+div.main div.selectPage div.discords_list div.guild div.guild_buttons div.button_manage_guild:hover {
+    background: #ffe22269;
+}
+
+
+div.main div.selectPage div.discords_list div.guild div.content_right {
+    margin: 5px;
+}
+div.main div.selectPage div.discords_list div.guild div.content_right div.guild_informations {
+    padding: 5px;
+}
+div.main div.selectPage div.discords_list div.guild div.content_right div.separator {
+    background-color: #ffffff;
+    height: 1px;
+    margin: 10px;
+}
+div.main div.selectPage div.discords_list div.guild div.content_right div.developer_mode{
+    padding: 5px;
+}
+div.main div.selectPage div.discords_list div.guild div.content_right div.developer_mode h3.title{
+    margin: 0px;
+    margin-bottom: 10px;
+    text-align: center;
+    text-decoration: underline;
+}
+div.main div.selectPage div.discords_list div.guild div.content_right div.guild_informations div {
+    margin-bottom: 5px;
+}
+div.main div.selectPage div.discords_list div.guild div.content_right div.guild_informations div.bold {
+    font-weight: bold;
+}
+div.main div.selectPage div.discords_list div.guild div.content_right div.guild_informations div.big {
+    font-size: 20px;
+}
+div.main div.selectPage div.discords_list div.guild div.content_right div.guild_informations .mini_info{
+    background-color: #dcbf0055;
+    max-width: fit-content;
+    padding: 1px 8px 1px 8px;
+    border-radius: 50px;
+    font-family: consolas;
+}
+div.main div.selectPage div.discords_list div.guild div.content_right * .info{
+    font-family: consolas;
+    background-color: #16bcf467;
+    padding: 1px 5px 1px 5px;
+    border-radius: 50px;
+}
+
+
+
+@media screen and (min-width: 801px) { /* PC */
+    body {
+        background-attachment: fixed;
+    }
+
+    div.main div.selectPage div.discords_list > div.guild {
+        display: inline-flex;
+        background-color: #36393F;
+        color: white;
+        /* max-width: 700px; */
+        /* min-width: 200px; */
+        /* width: fit-content; */
+        width: 500px;
+        padding: 10px;
+        margin: 20px;
+        border-radius: 10px;
+        border: solid 1px #FFF;
+        overflow-wrap: break-word;
+        
+    }
+    
+}
+
+
+@media screen and (max-width: 800px) { /* Mobile */
+    
+    #toasts {
+        font-size: 5vw;
+    }
+
+    div.main div.selectPage div.discords_list > div.guild {
+        display: block;
+        background-color: #36393F;
+        color: white;
+        /* max-width: 700px; */
+        /* min-width: 200px; */
+        /* width: fit-content; */
+        padding: 10px;
+        margin: 5px 30px 5px 30px;
+        margin: 10px auto;
+        border-radius: 10px;
+        border: solid 1px #FFF;
+        overflow-wrap: break-word;
+    }
+    div.main div.selectPage div.discords_list div.guild div.guild_buttons div.button {
+        width: 20vh;
+        margin: 0px auto;
+    }
+
+}
+
