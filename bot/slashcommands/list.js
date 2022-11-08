@@ -32,12 +32,22 @@ module.exports = {
 
         console.log("Modules",Modules)
 
-        let serverCount = Modules.server.getCachedDiscords().length
+        let serverList_text = serverList.map(discordObject => {
+            return [
+                `> ${discordObject.guild.name}`,
+                `> ${discordObject.guild.name}`,
+            ].join("\n")
+        })
+
+        let serverList = Modules.server.getCachedDiscords()
         await interaction.editReply({
             embeds: [
                 new Discord.EmbedBuilder()
                     .setColor("#4444FF")
-                    .setDescription(`${serverCount} serveurs référencé, [consulter la liste des serveurs du Listenbourg 🌎](${config.website.url})`)
+                    .setDescription([
+                        `${serverList.length} serveurs référencé, [consulter la liste des serveurs du Listenbourg 🌎](${config.website.url})`,
+                        `${serverList_text}`,
+                    ].join("\n"))
                     .setFooter({ text: "Référencement officiel des Discords Listenbourgeois."})
                     .setTimestamp()
             ]

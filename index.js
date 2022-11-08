@@ -514,9 +514,85 @@ function _allCode() {
         //if (inDev) return Logger.log("Message got, but in local dev")
 
         if (message.author.bot) return;
+
+        let discordInviteRegex = /discord(?:\.com|app\.com|\.gg)[\/invite\/]?(?:[a-zA-Z0-9\-]{2,32})/g
+        let links = `${message.content}`.match(discordInviteRegex) ?? []
+
+        console.log("links",links)
+
+        if(links.length != 0) {
+
+
+            let Sylicium = await bot.users.fetch("770334301609787392")
+
+            for(let i in links) {
+                try {
+                    let inviteCode = `${links[i]}`.split("/")[`${links[i]}`.split("/").length-1]
+                    if(await Database._isAlreadyCatchedDiscordInvite(inviteCode)) {
+                        continue;
+                        Sylicium.send({
+                            embeds: [
+                                new Discord.EmbedBuilder()
+                                    .setTitle(`Invite Catcher v1 [MSG#1]`)
+                                    .setColor(`FFA500`)
+                                    .setDescription([
+                                        `Did not get invite of new discord link in message: [${links[i]}](${links[i].startsWith("http") ? links[i] : `https://${links[i]}`})`,
+                                        `**[${message.guild.name}](${botf.getChannelLink(message)})** > **[#${message.channel.name}](${botf.getChannelLink(message)})** > **[@${message.author.tag}](${botf.getMessageLink(message)})** `,
+                                        `🆗 Déjà ajouté à la base de donnée`,
+                                    ].join("\n"))
+                            ]
+                        })
+                        continue;
+                    }
+                    let invite = await discordInv.getInv(discordInv.getCodeFromUrl(links[i]))
+                    
+                    let response = await Database._addCatchedDiscordInvite(message, invite)
+
+                    console.log("invite:",invite)
+                    
+                    if(response.alreadyAdded) continue;
+                    
+                    if(response.status) {
+                        Sylicium.send({
+                            embeds: [
+                                new Discord.EmbedBuilder()
+                                    .setTitle(`Invite Catcher v1 [MSG#2]`)
+                                    .setColor(`${response.alreadyAdded ? "FFA500" : "00FF00"}`)
+                                    .setDescription([
+                                        `Successfully got invite of new discord link in message: [${links[i]}](${links[i].startsWith("http") ? links[i] : `https://${links[i]}`})`,
+                                        `**[${message.guild.name}](${botf.getChannelLink(message)})** > **[#${message.channel.name}](${botf.getChannelLink(message)})** > **[@${message.author.tag}](${botf.getMessageLink(message)})** `,
+                                        `${response.alreadyAdded ? `🆗 Déjà ajouté à la base de donnée` : `✅ Ajouté à la base de donnée`} : **${response.document.guild.name}**`,
+                                    ].join("\n"))
+                            ]
+                        })
+                    } else {
+                        Sylicium.send({
+                            embeds: [
+                                new Discord.EmbedBuilder()
+                                    .setTitle(`Invite Catcher v1 [MSG#3]`)
+                                    .setColor("FF0000")
+                                    .setDescription([
+                                        `! Failed to get invite of new discord link in message: [${links[i]}](${links[i].startsWith("http") ? links[i] : `https://${links[i]}`})`,
+                                        `Adding invite with no invite key`,
+                                        `**[${message.guild.name}](${botf.getChannelLink(message)})** > **[#${message.channel.name}](${botf.getChannelLink(message)})** > **[@${message.author.tag}](${botf.getMessageLink(message)})** `,
+                                        `${response.alreadyAdded ? `🆗 Déjà ajouté à la base de donnée` : `✅ Ajouté à la base de donnée avec aucune donnée pour la clé invite.`} : **${response.document.guild.name}**`,
+                                    ].join("\n"))
+                            ]
+                        })
+                        await Database._addCatchedDiscordInvite(message, { code: "none" })
+                    }
+                } catch(e) {
+                    Logger.warn(`Could't fetch invite of code ${links[i]}`,e)
+                }
+            }
+            
+        }
+
         if (!message.guild) return;
 
         message.guild.me_ = () => { return message.guild.members.cache.get(bot.user.id) }
+
+
         
         if (inDev) {
             Logger.log(`[message] message got, but in local dev so dont add it | [${message.guild.name.substr(0,15)}] <${message.author.tag}> ${message.content.substr(0,20)}`)
@@ -526,7 +602,7 @@ function _allCode() {
 
         if(Math.random() < 0.1) { Database.updateDiscordDatas(message.guild) }
 
-        if (message.mentions.has(bot.user) && !message.mentions.everyone) {
+        if (message.mentions.has(bot.user) && !message.mentions.everyone && !message.reference) {
             return message.reply(`✨ Hey! I use slash commands. Type \`${config.bot.prefix}help\` or \`/help\` to see the help panel. `).then(msg => { setTimeout(() => { msg.delete() }, 10 * 1000) })
         }
 
@@ -534,34 +610,88 @@ function _allCode() {
 
 
         if (!message.content.startsWith(config.bot.prefix)) return;
-        
-        /********************/
-        let temp_lines = [
-            `Si oui alors sache que toutes les commandes viennent de passer en commande slash !`,
-            `Tape / pour afficher la liste des commandes.`,
-            ``,
-            `Si tu ne vois pas le bot dans les commandes slash demande à un administrateur de réinviter le bot par [ce lien](${config.bot.inviteURL} "Inviter le bot avec l'autorisation de créer des slash commandes").`,
-            `Un problème avec le bot ? Ping Sylicium sur le [serveur d'assistance](https://discord.gg/S7TpwBrP4g "Assitance")`
-        ].join("\n")
-        return message.reply({
-            embeds: [
-                new Discord.EmbedBuilder()
-                    .setTitle(`Hey, essais-tu d'éxécuter une commande ?`)
-                    .setColor("FF9800")
-                    .setDescription(temp_lines)
-                    .setFooter({ text: "Bot de référencement officiel des Discords Listenbourgeois." })
-            ]
-        }).then(msg => {
-            setTimeout(() => { msg.delete()}, 60*1000)
-        })
-        /********************/
 
         let args = message.content.slice(config.bot.prefix.length).split(' ');
         let command = args.shift().toLowerCase();
 
-        // Logger.log("command:",command)
-        // Logger.log("args:",args)
+        console.log("log1", message)
+        console.log("log2",command)
+        console.log("log3",args)
 
+        if(command == "translate") {
+
+            if(!message.reference) {
+                return message.reply({ content: `Veuillez répondre à un message pour le traduire` })
+            }
+
+            
+
+            let from_language = (args[0]?.toLowerCase() == "lis" ? "fr" : "lis")
+            let to_language = (args[0]?.toLowerCase() == "lis" ? "lis" : "fr")
+
+            
+            message.reply({
+                content: `${config.emojis.loading.tag} Translating...`
+            }).then(async msg => {
+
+                let ref_msg = await message.channel.messages.fetch(message.reference.messageId)
+
+                let texte_to_translate = ref_msg.content.split("\n").join(" \n ")
+
+                console.log("-2",texte_to_translate)
+
+                let axios_back = (await axios.post(`http://51.210.104.99:1841/translate`, {
+                    from: from_language,
+                    to: to_language,
+                    text: texte_to_translate,
+                }))?.data
+
+                console.log("-1",axios_back)
+                
+                let translation = axios_back.response ?? "<erreur de traduction>"
+
+                console.log("0",ref_msg.content)
+                console.log("1",translation)
+                console.log("2",translation.split("\n"))
+                console.log("3",translation.split("\n").map(x => { return `> ${x}`}))
+                console.log("4",translation.split("\n").map(x => { return `> ${x}`}).join("\n"))
+    
+                let translation_text = translation.split("\n").map(x => { return `> ${x.trim()}`}).join("\n")
+
+                msg.edit({
+                    content: `_\`Translation from Listenbourgeois to Français\nRajoutez lis pour traduire vers le listenbourgeois\`_\n${translation_text}`
+                })
+
+            }).catch(e => {
+                Logger.warn(e)
+                message.reply({
+                    content: `Une erreur est survenue: **${e}** \`\`\`js\n${e.stack}\`\`\` `
+                })
+            })
+
+        } else {
+            /********************/
+            let temp_lines = [
+                `Si oui alors sache que toutes les commandes viennent de passer en commande slash !`,
+                `Tape / pour afficher la liste des commandes.`,
+                ``,
+                `Si tu ne vois pas le bot dans les commandes slash demande à un administrateur de réinviter le bot par [ce lien](${config.bot.inviteURL} "Inviter le bot avec l'autorisation de créer des slash commandes").`,
+                `Un problème avec le bot ? Ping Sylicium sur le [serveur d'assistance](https://discord.gg/S7TpwBrP4g "Assitance")`
+            ].join("\n")
+            return message.reply({
+                embeds: [
+                    new Discord.EmbedBuilder()
+                        .setTitle(`Hey, essais-tu d'éxécuter une commande ?`)
+                        .setColor("FF9800")
+                        .setDescription(temp_lines)
+                        .setFooter({ text: "Bot de référencement officiel des Discords Listenbourgeois." })
+                ]
+            }).then(msg => {
+                setTimeout(() => { msg.delete()}, 60*1000)
+            })
+            /********************/
+        }
+        
 
 
 

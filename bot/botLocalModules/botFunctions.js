@@ -422,3 +422,8 @@ module.exports.getMessageLink = getMessageLink
 function getMessageLink(message) {
     return `https://discord.com/channels/${message.guild.id}/${message.channel.id}/${message.id}`
 }
+module.exports.getChannelLink = getChannelLink
+function getChannelLink(channelOrMessage) {
+    if(channelOrMessage.content) channelOrMessage = channelOrMessage.channel
+    return `https://discord.com/channels/${channelOrMessage.guild.id}/${channelOrMessage.id}`
+}

@@ -11,7 +11,7 @@ module.exports = {
     commandInformations: {
         commandDatas: {
             name: "wiki",
-            description: "Consulter la liste des serveurs référencés.",
+            description: "Rechercher une page sur le wiki",
             dmPermission: false,
             type: Discord.ApplicationCommandType.ChatInput,
             options: [
@@ -37,7 +37,7 @@ module.exports = {
         },
         rolesNeeded: [],
         superAdminOnly: false,
-        disabled: true,
+        disabled: false,
         indev: false,
         hideOnHelp: false
     },

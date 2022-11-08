@@ -55,6 +55,39 @@ class Database {
     async getAllDiscords() {
         return this.Mongo.db(this._usedDataBaseName).collection("discordsList").find() // ne pas mettre .toArray() car mis en dehors
     }
+
+
+    async _isAlreadyCatchedDiscordInvite(inviteCode) {
+        return await this.Mongo.db(this._usedDataBaseName).collection("discordCatched").findOne({"invite.code": inviteCode })
+    }
+
+    async _addCatchedDiscordInvite(message, invite) {
+
+        let find;
+        find = await this._isAlreadyCatchedDiscordInvite(invite.code)
+        if(find) return {
+            status: true,
+            alreadyAdded: true,
+        }
+
+        let document = {
+            catchedAt: Date.now(),
+            invite: JSON.parse(JSON.stringify(invite)),
+            messageId: message.id,
+            channelId: message.channel.id,
+            guildId: message.guild.id,
+            guild: JSON.parse(JSON.stringify(message.guild)),
+            author: JSON.parse(JSON.stringify(message.author)),
+        }
+        await this.Mongo.db(this._usedDataBaseName).collection("discordCatched").insertOne(document)
+        return {
+            status: true,
+            alreadyAdded: false,
+            document: document,
+        }
+    }
+
+
     
     async getGuildDatas(guild_id) {
         return false // le temps de remettre les fichiers de pattern
