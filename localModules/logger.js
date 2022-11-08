@@ -14,7 +14,7 @@ let config = require("../config")
 let configuration = {
     coloration: "colored", // normal: erreur tout en rouge, warn tout en orange etc.. | colored couleurs différentes pour la ligne de log pour la date, heure etc..
     logOnStart: false,
-    ReplitName: "ReferencementDBG",
+    ReplitName: "listenbourg",
     workDirectoryFullPath: "c:\\Users\\Sylicium\\Documents\\devlopement\\Projets\\#0015 Bot listenbourg",
     workDirectory: "\\none",
     replitMode: false

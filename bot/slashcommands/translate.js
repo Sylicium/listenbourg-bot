@@ -43,10 +43,10 @@ module.exports = {
         canBeDisabled: false,
         permisionsNeeded: {
             bot: ["SEND_MESSAGES","VIEW_CHANNEL"],
-            user: ["ADMINISTRATOR"]
+            user: []
         },
         rolesNeeded: [],
-        superAdminOnly: true,
+        superAdminOnly: false,
         disabled: false,
         indev: false,
         hideOnHelp: false

@@ -60,7 +60,7 @@ module.exports = {
         rolesNeeded: [],
         superAdminOnly: false,
         disabled: false,
-        indev: false,
+        indev: true,
         hideOnHelp: false
     },
     execute: async (Modules, bot, interaction, data, a,b,c,d,e,f,g,h) => {
