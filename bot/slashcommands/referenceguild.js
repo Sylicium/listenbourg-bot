@@ -10,7 +10,7 @@ let somef = require("../../localModules/someFunctions")
 let commandInformations = {
     commandDatas: {
         name: "referenceguild",
-        description: "Référence votre serveur sur le site du centre de renseignement.",
+        description: "Référence votre serveur sur le site.",
         dmPermission: false,
         type: Discord.ApplicationCommandType.ChatInput,
         options: []
