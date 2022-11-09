@@ -91,7 +91,8 @@ module.exports = {
         if(!interaction.options.get("all") || interaction.options.get("all").value == false) {
 
             command_string_list = command_string_list.concat([
-                `${config.emojis.check_mark.tag} Vous pouvez utiliser toutes ces commandes`,
+                `${config.emojis.check_mark.tag} Vous pouvez utiliser toutes ces commandes.`,
+                `💡 Utilise l'option \`all:True\` pour afficher même les commandes auxquelles tu n'as pas accès.`,
                 ``,
             ])
 
