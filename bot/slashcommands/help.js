@@ -164,7 +164,7 @@ module.exports = {
                     .setDescription(command_string)
                     .setFooter({ text: `${(interaction.options.get("all") ? `${
                         (interaction.options.get("all").value == true) ? "Affiche uniquement les commandes que vous pouvez faire" : "Affiche toute les commandes"
-                    }` : `💡 Utilise l'option all:Trie pour afficher même les commandes auxquelles tu n'as pas accès`)}`})
+                    }` : `💡 Utilise l'option all:True pour afficher même les commandes auxquelles tu n'as pas accès`)}`})
                     .setTimestamp()
             ],
             ephemeral: true
