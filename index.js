@@ -676,7 +676,7 @@ function _allCode() {
                 `Tape / pour afficher la liste des commandes.`,
                 ``,
                 `Si tu ne vois pas le bot dans les commandes slash demande à un administrateur de réinviter le bot par [ce lien](${config.bot.inviteURL} "Inviter le bot avec l'autorisation de créer des slash commandes").`,
-                `Un problème avec le bot ? Ping Sylicium sur le [serveur d'assistance](https://discord.gg/S7TpwBrP4g "Assitance")`
+                `Un problème avec le bot ? [serveur d'assistance](https://discord.gg/S7TpwBrP4g "Assitance")`
             ].join("\n")
             return message.reply({
                 embeds: [
@@ -735,27 +735,53 @@ function _allCode() {
         one_channel.send({
             embeds: [
                 (new EmbedBuilder()
-                .setTitle(`Référencement des Discords Listenbourgeois`)
+                .setTitle(`Bot Discord Listenbourgeois`)
                 .setColor("#4444FF")
-                .setDescription(`Merci d'avoir ajouté le bot.\n\n__**Configurer le bot:**__\n\nLe préfix est \`${config.bot.prefix}\`. Faites \`${config.bot.prefix}help\` pour afficher les commandes.
-            > 1) Pour référencer ce serveur faites \`${config.bot.prefix}referenceguild\`. Le serveur deviendra alors public sur le site web qui liste les Discords.
-            > 2) Pour dé-référencer le Discord faites \`${config.bot.prefix}unreferenceguild\`, ou dans un cas urgent ou exceptionnel, contactez le développeur sur le [serveur d'assistance](https://discord.gg/S7TpwBrP4g).
-
-            **:warning: ATTENTION, EXPULSER LE BOT DU SERVEUR N'ARRETERA PAS LE RÉFÉRENCEMENT DE CELUI CI SUR LE SITE; voir 2.**
-            La certification est donnée après que le développeur ai vérifié que le Discord traite bien du Listenbourg. Pour toute autre question allez sur le serveur d'assistance.
-
-            Ce bot a été développé par \`Sylicium#3980\` (<@770334301609787392>) / \`Sylicium#2487\` (<@774003919625519134>)
-
-            ${subtext.join("\n")}
-
-            __**Autres liens:**__
-            🌎 Sites: [Liste des serveurs du Listenbourg](${config.website.url}) • [site du Listenbourg](https://DirtyBiology.captaincommand.repl.co) • [listenbourg.com](https://listenbourg.com)
-            🔵 Discords: [Assistance des bots](https://discord.gg/S7TpwBrP4g) • [Listenbourg](https://discord.gg/gaspardooo) • [Listenbourgeois (langue)](https://discord.gg/6bGUN2Jtfw)
-            `)
+                .addFields([
+                    { name: "Recenser le Discord", value: [
+                        `> 1) Pour référencer ce serveur faites </referenceguild:1038804091347931158>. Le serveur deviendra alors public sur le site web qui liste les Discords.`,
+                        `> 2) Pour dé-référencer le Discord faites </unreferenceguild:1038804091347931164>, ou dans un cas urgent ou exceptionnel, dirigez vous sur le [serveur d'assistance](https://discord.gg/S7TpwBrP4g).`,
+                        `> **:warning: ATTENTION, EXPULSER LE BOT DU SERVEUR N'ARRETERA PAS LE RÉFÉRENCEMENT DE CELUI CI SUR LE SITE; voir 2.**`,
+                        `> ${config.emojis.check_mark.tag} La certification est donnée après uniquement si le Discord traite bien du Listenbourg. Pour toute autre question allez sur le serveur d'assistance.`,
+                    ].join("\n"), inline: true },
+                    { name: "Traduire en Listenbourgeois", value: [
+                        `> Utilisez la commande </translate:1039314144668684378> pour traduire des phrases.`,
+                        `> Utilisez la commande \`${config.bot.prefix}translate (lis)\` en répondant à un message pour le traduire.`,
+                        `> [🌎 Consultez le traducteur en ligne](https://listenbourg.vincelinise.com/traduction/ "Traducteur en ligne") de listenbourgeois.`,
+                        `> Ou [Cliquez ici](https://discord.gg/6bGUN2Jtfw "Rejoindre l'académie listenbourgeoise") pour rejoindre le Discord de l'académie.`
+                    ].join("\n"), inline: true }
+                ])
+                .setDescription([
+                    `Merci d'avoir ajouté le bot.`,
+                    ``,
+                    `Le préfix hors commandes slash est \`${config.bot.prefix}\`. Faites </help:1038804091306004609> pour afficher les commandes.`,
+                    `${subtext.length > 0 ? `\n${subtext.join("\n")}\n` : ""}`,
+                    `__**Autres liens:**__`,
+                    `🌎 Sites: [Liste des serveurs du Listenbourg](${config.website.url}) • [site du Listenbourg](https://google.com) • [listenbourg.com](https://listenbourg.com)`,
+                    `🔵 Discords: [Assistance des bots](https://discord.gg/S7TpwBrP4g) • [Listenbourg](https://discord.gg/gaspardooo) • [Listenbourgeois (langue)](https://discord.gg/6bGUN2Jtfw)`,
+                    `\`\`\`\n \`\`\` `,
+                ].join("\n"))
                 .setFooter({ text: "Référencement officiel des Discords Listenbourgeois."})
                 .setTimestamp()
                 )
             ]
+        }).catch(e => {
+            Logger.warn(e)
+            
+                /*
+                
+                Ce bot a été développé par \`Sylicium#3980\` (<@770334301609787392>) / \`Sylicium#2487\` (<@774003919625519134>)`}
+                
+                .addFields([
+                    { name: "Recenser le Discord", value: [
+                        `> 1) Pour référencer ce serveur faites </referenceguild:1038804091347931158>. Le serveur deviendra alors public sur le site web qui liste les Discords.`,
+                        `> 2) Pour dé-référencer le Discord faites </unreferenceguild:1038804091347931164>, ou dans un cas urgent ou exceptionnel, dirigez vous sur le [serveur d'assistance](https://discord.gg/S7TpwBrP4g).`
+                    ].join("\n"), inline: true },
+                    { name: "Traduire en Listenbourgeois", value: [
+                        `> Utilisez la commande </translate:1039314144668684378>`,
+                        `> [Rejoindre le Discord de l'académie](https://discord.gg/6bGUN2Jtfw "Rejoindre l'académie listenbourgeoise")`
+                    ].join("\n"), inline: true }
+                ])*/
         })
 
 
