@@ -1,5 +1,5 @@
 
-# Script de recensement des discord dirtybiologistanais
+# Bot Discord multifonction du Listenbourg
 
 # Développeurs:
 
