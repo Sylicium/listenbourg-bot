@@ -4,7 +4,7 @@ module.exports = {
         prefix: "lis!",
         id: "",
         token: process.env["TOKEN"],
-        setApplicationCommandsOnStart: false,
+        setApplicationCommandsOnStart: true,
         setApplicationCommandsInLocal: true,
         setApplicationCommandsInLocal_guilds: [
             "792139282831507467",

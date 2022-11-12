@@ -167,6 +167,29 @@ module.exports = {
                         }
                     ]
                 },
+                {
+                    "name": "specialchars",
+                    "description": "Obtenir les caractères spéciaux en listenbourgeois.",
+                    "type": Discord.ApplicationCommandOptionType.Subcommand,
+                    "options": [ // <français> <listenbourgeois> <?description> <F:silent:Boolean>
+                        {
+                            "name": "caractere",
+                            "description": "Le caractère à obtenir",
+                            "type": Discord.ApplicationCommandOptionType.String,
+                            "choices": [
+                                { name: "Tous", value:"all" },
+                                { name: "ß", value: "ß" },
+                                { name: "æ", value: "æ" },
+                                { name: "Æ", value: "Æ" },
+                                { name: "œ", value: "œ" },
+                                { name: "Œ", value: "Œ" },
+                                { name: "Ò", value: "Ò" },
+                                { name: "ò", value: "ò" },
+                            ],
+                            "required": false
+                        }
+                    ]
+                },
             ]
         },
         canBeDisabled: false,
@@ -182,7 +205,6 @@ module.exports = {
     },
     execute: async (Modules, bot, interaction, data, a,b,c,d,e,f,g,h) => {
 
-		await interaction.deferReply();
 
         let subCommand = interaction.options.getSubcommand()
 
@@ -192,6 +214,7 @@ module.exports = {
 
 
         if(subCommand == "addword") {
+            await interaction.deferReply();
 
             let french = interaction.options.get("french")?.value || "<erreur>"
             let listenbourgeois = interaction.options.get("listenbourgeois")?.value || "<erreur>"
@@ -300,7 +323,7 @@ module.exports = {
             })
 
         } else if(subCommand == "removeword") {
-
+            await interaction.deferReply();
 
             let word_id = interaction.options.get("word_id")?.value ?? undefined
 
@@ -365,6 +388,7 @@ module.exports = {
 
             
         } else if(subCommand == "editword") {
+            await interaction.deferReply();
             interaction.editReply({
                 content: "Modifier un mot. En développement"
             })
@@ -487,6 +511,7 @@ module.exports = {
             */
             
         } else if(subCommand == "searchword") {
+            await interaction.deferReply();
 
             let query = interaction.options.get("query")?.value || undefined 
 
@@ -669,6 +694,7 @@ module.exports = {
 
 
         } else if(subCommand == "translate") {
+            await interaction.deferReply();
 
             let from = interaction.options.get("from")?.value || undefined
             let texte = interaction.options.get("texte")?.value || undefined
@@ -697,7 +723,59 @@ module.exports = {
             */
             logger.debug("Terminé.")
 
+        } else if(subCommand == "specialchars") {
+
+            await interaction.deferReply({ ephemeral: true });
+
+            let caractere = interaction.options.get("caractere")?.value ?? "all"
+
+            let the_text_list = []
+
+            switch(caractere) {
+                case "all":
+                    the_text_list.push(`ß`)
+                    the_text_list.push(`æ`)
+                    the_text_list.push(`Æ`)
+                    the_text_list.push(`œ`)
+                    the_text_list.push(`Œ`)
+                    the_text_list.push(`Ò`)
+                    the_text_list.push(`ò`)
+                    break;
+                case "ß":
+                    the_text_list.push(`ß`)
+                    break;
+                case "æ":
+                    the_text_list.push(`æ`)
+                    break;
+                case "Æ":
+                    the_text_list.push(`Æ`)
+                    break;
+                case "œ":
+                    the_text_list.push(`œ`)
+                    break;
+                case "Œ":
+                    the_text_list.push(`Œ`)
+                    break;
+                case "Ò":
+                    the_text_list.push(`Ò`)
+                    break;
+                case "ò":
+                    the_text_list.push(`ò`)
+                    break;
+            }
+
+            interaction.editReply({
+                content: `Voici les caractères selectionnés:`
+            })
+            interaction.followUp({
+                content: the_text_list.join("\n"),
+                ephemeral: true
+            })
+
+
+
         } else {
+            await interaction.deferReply();
             interaction.editReply({
                 content: "default"
             })
