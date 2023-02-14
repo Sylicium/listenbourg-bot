@@ -405,12 +405,124 @@ function _allCode() {
 
 
 
+    /* SPECIAL EVENT CODE FOR 15/02/2023 00h00 to 15/02/2023 23h59 : ONLY CAPSLOCK EVENT*/
+
+    bot.on('messageCreate', async message => {
+        console.log("message:",message)
+        if(!message.guild) return;
+        if(message.author.bot) return;
+
+        console.log("Date.now()",Date.now())
+
+        if(Date.now() < 1676415600734) {
+            return console.log("CAPSLOCK EVENT: pas commencé")
+        }
+        if(1676501999734 < Date.now() ) {
+            return console.log("CAPSLOCK EVENT: terminé")
+        }
+
+        function isEventBetaTester(id) {
+            let beta_testers = [
+                ""
+            ]
+            return beta_testers.includes(id)
+        }
+
+        if(!somef.isSuperAdmin(message.author.id) && !isEventBetaTester(message.author.id)) return;
+
+        if(message.guild.id != "1037794097894797442") return;
+
+        let isWhitelisted = false
+
+        let whitelist = {
+            users: [
+                "746435557198135297", // drako - Admin
+                "770334301609787392", // Sylicium - Developer
+                "655393934796914707", // Konect - Admin
+                "702155370054811658", // Tris - Admin
+                "709467384674779208", // EdPims - Admin
+                "AAAAAAAAAAAAAAAAAAAA", // AAAAAAAAAAAAAAAA
+                "AAAAAAAAAAAAAAAAAAAA", // AAAAAAAAAAAAAAAA
+
+            ],
+            roles: [
+
+            ],
+            channels: [
+
+            ]
+        }
+        
+        function anyHitIn(list, func) {
+            for(let i in list) {
+                if(func(list[i])) return true
+            }
+            return false
+        }
+
+        if(anyHitIn(whitelist.channels, (id) => { // check if channel if whitelisted
+            return id == message.channel.id
+        })) isWhitelisted = true
+
+        if(anyHitIn(whitelist.users, (id) => { // check if user id is whitelisted
+            return id == message.author.id
+        })) isWhitelisted = true
+
+        if(anyHitIn(whitelist.roles, (id) => { // check if has a whitelisted role
+            return message.member.roles.has(id)
+        })) isWhitelisted = true
 
 
+        let nor = `${message.content}`
+        nor = nor.replace(/https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/gi, "")
+        let che = nor.toUpperCase()
+
+        if(nor != che) {
+            console.log("debug1")
+            let checkedMessageString = ""
+
+            for(let i in nor) {
+                if(nor[i] != che[i]) {
+                    checkedMessageString += `__${nor[i]}__`
+                } else {
+                    checkedMessageString += `${nor[i]}`
+                }
+            }
+            checkedMessageString = checkedMessageString.split("____").join("")
+
+            message.react("⚠")
+            setTimeout(() => {
+                if(!isWhitelisted) {
+                    message.delete()
+                }
+            }, 3*1000)
 
 
+            if(Math.random() > 0.9) {
+                message.reply({
+                    embeds: [
+                        new Discord.EmbedBuilder()
+                            .setDescription([
+                                `Aie.. on est en plein __**évent capslock**__ ! Tous tes messages doivent être écrits en **MAJUSCULES** !`,
+                                `**Voici ce qui cloche avec ton message:**`,
+                                ``,
+                                `${checkedMessageString.split("\n").join("\n> ")}`,
+                            ].join("\n"))
+                            .setColor("FF0000")
+                        
+                    ],
+                    ephemeral: true, // marche pas lol
+                }).then(m => {
+                    setTimeout(() => {
+                        m.delete()
+                    }, 15*1000)
+                })
+            }
+        }
 
+    })
 
+    /******************************/
 
 
 
