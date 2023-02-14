@@ -408,11 +408,9 @@ function _allCode() {
     /* SPECIAL EVENT CODE FOR 15/02/2023 00h00 to 15/02/2023 23h59 : ONLY CAPSLOCK EVENT*/
 
     bot.on('messageCreate', async message => {
-        console.log("message:",message)
         if(!message.guild) return;
         if(message.author.bot) return;
 
-        console.log("Date.now()",Date.now())
 
         if(Date.now() < 1676415600734) {
             return console.log("CAPSLOCK EVENT: pas commencé")
@@ -478,7 +476,6 @@ function _allCode() {
         let che = nor.toUpperCase()
 
         if(nor != che) {
-            console.log("debug1")
             let checkedMessageString = ""
 
             for(let i in nor) {
