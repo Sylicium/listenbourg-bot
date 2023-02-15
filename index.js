@@ -539,9 +539,7 @@ function _allCode() {
                 c = textList[i]
                 if(allNormalChars.includes(c)) {
                     total++
-                    console.log("includes",c)
                 } else {
-                    console.log("pas includes:",c)
                     noNormalCharCount++
                     total++
                 }
