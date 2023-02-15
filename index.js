@@ -487,12 +487,97 @@ function _allCode() {
             }
             checkedMessageString = checkedMessageString.split("____").join("")
 
-            message.react("⚠")
+
+            let legendaryDrops = {
+                "1": {
+                    emoji: "🥧",
+                    fullname: "Tarte",
+                    rarity: "WHATTTTT?????",
+                    color: "FFF000",
+                },
+                "2": {
+                    emoji: "⛔",
+                    fullname: "Panneau interdit",
+                    rarity: "Légendaire",
+                    color: "FFF000",
+                },
+                "3": {
+                    emoji: "🚫",
+                    fullname: "Panneau circulaire",
+                    rarity: "Rare",
+                    color: "FA5000",
+                },
+                "4": {
+                    emoji: "❕",
+                    fullname: "Point d'exclamation blanc",
+                    rarity: "Peu commun",
+                    color: "425AF5",
+                },
+                "5": {
+                    emoji: "❗",
+                    fullname: "Point d'exclamation",
+                    rarity: "Commun",
+                    color: "FFFFFD",
+                },
+            }
+
+            let isLegendaryDrop = false
+            let legendaryDrop = undefined
+            let legendaryDropValue = Math.random()*100
+            if(legendaryDropValue < 0.5) {
+                isLegendaryDrop = true
+                legendaryDrop = legendaryDrops["1"]
+            } else if(legendaryDropValue < 3) {
+                isLegendaryDrop = true
+                legendaryDrop = legendaryDrops["2"]
+            } else if(legendaryDropValue < 5) {
+                isLegendaryDrop = true
+                legendaryDrop = legendaryDrops["3"]
+            } else if(legendaryDropValue < 10) {
+                isLegendaryDrop = true
+                legendaryDrop = legendaryDrops["4"]
+            } else if(legendaryDropValue < 25) {
+                isLegendaryDrop = true
+                legendaryDrop = legendaryDrops["5"]
+            }
+
+            
+            if(legendaryDrop != undefined) {
+                message.react(`${legendaryDrop.emoji}`)
+            } else {
+                message.react("⚠")
+            }
             setTimeout(() => {
                 if(!isWhitelisted) {
                     message.delete()
                 }
-            }, 3*1000)
+            }, (isLegendaryDrop ? 10*1000 : 3*1000) )
+
+            if(isLegendaryDrop && somef.isSuperAdmin(message.author.id)) {
+                message.author.send({
+                    embeds: [
+                        new Discord.EmbedBuilder()
+                            .setTitle(`Drop rare !`)
+                            .setColor(legendaryDrop.color)
+                            .setDescription([
+                                `Hey ! Il semblerais que tu ai trouvé un loot !`,
+                            ].join("\n"))
+                            .addFields([
+                                {
+                                    name: "Tu as trouvé un/une",
+                                    value: `${legendaryDrop.emoji} **${legendaryDrop.fullname}**`,
+                                    inline: true
+                                },
+                                {
+                                    name: "Rareté",
+                                    value: `${legendaryDrop.rarity}`,
+                                    inline: true
+                                }
+                            ])
+                            .setFooter({ text: "Event capslock du 15/02/2023 - Parlement listenbourg" })
+                    ]
+                })
+            }
 
 
             if(Math.random() > 0.9) {
