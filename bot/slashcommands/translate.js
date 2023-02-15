@@ -81,13 +81,14 @@ module.exports = {
             }))?.data
         } catch(e) {
             await interaction.editReply({
+                content: ``,
                 embeds: [
                     new Discord.EmbedBuilder()
-                        .setTitle(`Aie.. Impossible de se joindre le serveur`)
+                        .setTitle(`Aie.. Traduction impossible`)
                         .setColor("FF0000")
                         .setDescription([
                             `Le service est actuellement indisponible, impossible de procéder à la commande.`,
-                            `Erreur: \`\`\`js\n${e}\`\`\``,
+                            `Erreur: \`\`\`js\n${e.replace(`51.210.104.99:1841`,"<SERVER ADDRESS>").replace(`51.210.104.99`,"<SERVER ADDRESS>")}\`\`\``,
                         ].join("\n"))
                 ]
             })
