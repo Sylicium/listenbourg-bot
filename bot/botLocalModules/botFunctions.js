@@ -144,7 +144,8 @@ function getBitFieldPermission(permNameOrList) {
         if(BitFieldPermissions_[permNameOrList] != undefined) {
             return BitFieldPermissions_[permNameOrList]
         } else {
-            return permNameOrList
+            throw new Error(`BotFunctions.getBitFieldPermission(): Cannot found permission of string '${permNameOrList}'`)
+            //return permNameOrList
         }
     }
 
