@@ -536,7 +536,7 @@ function _allCode() {
             let noNormalCharCount = 0
             let total = 0
             for(let i in textList) {
-                c = textList[i]$
+                c = textList[i]
                 if(allNormalChars.includes(c)) {
                     total++
                 } else {
