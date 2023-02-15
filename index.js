@@ -487,40 +487,6 @@ function _allCode() {
             }
             checkedMessageString = checkedMessageString.split("____").join("")
 
-
-            let legendaryDrops = {
-                "1": {
-                    emoji: "🥧",
-                    fullname: "Tarte",
-                    rarity: "WHATTTTT?????",
-                    color: "FFF000",
-                },
-                "2": {
-                    emoji: "⛔",
-                    fullname: "Panneau interdit",
-                    rarity: "Légendaire",
-                    color: "FFF000",
-                },
-                "3": {
-                    emoji: "🚫",
-                    fullname: "Panneau circulaire",
-                    rarity: "Rare",
-                    color: "FA5000",
-                },
-                "4": {
-                    emoji: "❕",
-                    fullname: "Point d'exclamation blanc",
-                    rarity: "Peu commun",
-                    color: "425AF5",
-                },
-                "5": {
-                    emoji: "❗",
-                    fullname: "Point d'exclamation",
-                    rarity: "Commun",
-                    color: "FFFFFD",
-                },
-            }
-
             legendaryDrops = [
                 {
                     emoji: "🥧",
@@ -569,7 +535,6 @@ function _allCode() {
 
             for(let i in legendaryDrops) {
                 let d = legendaryDrops[i]
-                console.log("d:",d)
                 if(legendaryDropValue < d.drop) {
                     isLegendaryDrop = true
                     legendaryDrop = d
@@ -577,7 +542,6 @@ function _allCode() {
                 }
             }
 
-            console.log("drop:",legendaryDrop)
             
             if(legendaryDrop != undefined) {
                 message.react(`${legendaryDrop.emoji}`)
