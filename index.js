@@ -547,9 +547,6 @@ function _allCode() {
                 }
             }
             let the_value = (noNormalCharCount/total)
-            console.log("noNormalCharCount:",noNormalCharCount)
-            console.log("total:",total)
-            console.log("the_value:",the_value)
             if( the_value > 0.05 ) return true
             return false
         }
