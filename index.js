@@ -408,6 +408,14 @@ function _allCode() {
     /* SPECIAL EVENT CODE FOR 15/02/2023 00h00 to 15/02/2023 23h59 : ONLY CAPSLOCK EVENT*/
 
     bot.on('messageCreate', async message => {
+        eventCAPSLOCK_parlement(message)
+    })
+    bot.on('messageUpdate', async message => {
+        eventCAPSLOCK_parlement(message)
+    })
+
+    async function eventCAPSLOCK_parlement(message) {
+
         if(!message.guild) return;
         if(message.author.bot) return;
 
@@ -608,7 +616,7 @@ function _allCode() {
             }
         }
 
-    })
+    }
 
     /******************************/
 
