@@ -493,6 +493,32 @@ function _allCode() {
         if(nor != che) {
             let checkedMessageString = ""
 
+            let blacklist_chars = [
+                'a', 'b',
+                '�', '�', '�', '�', '�', '�', '�',
+                '�', '�', '�', '�', '�', '�', '�',
+                '�', '�', '�', '�', '�', '�', '�',
+                '�', '�', '�', '�', '�', '�', '�',
+                '�', '�', '�', '�', '�'
+              ]
+
+            /*
+                chars = `𝐃𝐨𝐦𝐦𝐚𝐠𝐞, 𝐦𝐚𝐢𝐬 𝐣𝐞 𝐩𝐚𝐫𝐥𝐞 𝐪𝐮𝐚𝐧𝐝 𝐦𝐞𝐦𝐞 𝐞𝐧 𝐦𝐢𝐧𝐮𝐬𝐜𝐮𝐥𝐞. 𝐃𝐨𝐧𝐜 𝐬𝐢 𝐮𝐧𝐞 𝐢𝐝𝐞𝐞 𝐦𝐞 𝐯𝐢𝐞𝐧𝐭 𝐣𝐞 𝐟𝐞𝐫𝐚𝐢𝐬 𝐮𝐧 𝐭𝐞𝐬𝐭`.split("")
+                notDupe = [... (new Set(chars))]
+                notDupe.sort((a, b) => a.localeCompare(b))
+
+                function addLetters(text) {
+                    c = text.split("")
+                    nd = [... (new Set(c))]
+                    notDupe.push(...nd)
+                    notDupe = [... (new Set(notDupe))]
+                    notDupe.sort((a, b) => a.localeCompare(b))
+                }
+
+                for(let i in notDupe) { console.log( `retfgrghrgetgth𝐃𝐨𝐦𝐦𝐚𝐠𝐞, 𝐦𝐚𝐢𝐬 𝐣𝐞 𝐩𝐚𝐫𝐥𝐞 𝐪𝐮𝐚𝐧𝐝 𝐦𝐞𝐦𝐞 𝐞𝐧 𝐦𝐢𝐧𝐮𝐬𝐜𝐮𝐥𝐞. 𝐃𝐨𝐧𝐜 𝐬𝐢 𝐮𝐧𝐞 𝐢𝐝𝐞𝐞 𝐦𝐞 𝐯𝐢𝐞𝐧𝐭 𝐣𝐞 𝐟𝐞𝐫𝐚𝐢𝐬 𝐮𝐧 𝐭𝐞𝐬𝐭`.includes(notDupe[i])) }
+
+            */
+
             for(let i in nor) {
                 allCount++
                 if(nor[i] != che[i]) {
