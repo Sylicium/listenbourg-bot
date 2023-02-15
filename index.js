@@ -684,7 +684,11 @@ function _allCode() {
                                     `Aie.. on est en plein __**évent capslock**__ ! Tous tes messages doivent être écrits en **MAJUSCULES** !` :
                                     `Aie.. l'__**évent capslock**__ du 15 février 2023 est terminé ! Plus besoin d'écrire en **MAJUSCULES** !`
                                 ),
-                                `**Cependant ton message contient plus de ${(notGoodPercentThreshold*100).toFixed(2)}% de majuscules.. (${((notGoodCount/allCount)*100).toFixed(2)} %)**`,
+                                (
+                                    !isEventCapslockEnded ?
+                                    `**Voici ce qui cloche dans ton message:**` :
+                                    `**Cependant ton message contient plus de ${(notGoodPercentThreshold*100).toFixed(2)}% de majuscules.. (${((notGoodCount/allCount)*100).toFixed(2)} %)**`
+                                ),
                                 ``,
                                 `${checkedMessageString.split("\n").join("\n> ")}`,
                             ].join("\n"))
