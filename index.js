@@ -205,6 +205,7 @@ function _allCode() {
         Logger.info(`[BOT]: Bot démarré en tant que ${bot.user.tag}`)
         //console.log(`Bot démarré en tant que ${bot.user.tag} | ${Object.size(bot.guilds.cache)} serveurs rejoints`)
 
+
         checkAnRecreateInvites()
         setInterval(checkAnRecreateInvites, 1000 * 3600 * 1)
         
@@ -532,7 +533,7 @@ function _allCode() {
 
         function checkIfNoNormalChars(text) {
             textList = text.toLowerCase().split("")
-            let allNormalChars = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_/:;,.*?!'\"`\\#éèàç%ùµ£$¤¨^§=+}&~€{([-|^à@°)]".split("")
+            let allNormalChars = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_/:;,.*?!'\"`\\#éèàç%ùµ£$¤¨^§=+}&~€{([-|^à@°)]><".split("")
             let noNormalCharCount = 0
             let total = 0
             for(let i in textList) {
@@ -570,9 +571,16 @@ function _allCode() {
 
             legendaryDrops = [
                 {
+                    emoji: "🍕",
+                    fullname: "Wumpus ??! Contacte Sylicium en mp avec le code pour recevoir un truc",
+                    drop: 0.0001, // 0.01 %
+                    rarity: "OH PTN D'MERDEEEEEE (code:WALLAHNITRO0394-145) (ne pas partager sinon pas nitro)",
+                    color: "FFF000",
+                },
+                {
                     emoji: "🥧",
                     fullname: "Tarte",
-                    drop: 0.005,
+                    drop: 0.005, // 0.5 %
                     rarity: "WHATTTTT?????",
                     color: "FFF000",
                 },
