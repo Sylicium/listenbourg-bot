@@ -410,8 +410,8 @@ function _allCode() {
     bot.on('messageCreate', async message => {
         eventCAPSLOCK_parlement(message)
     })
-    bot.on('messageUpdate', async message => {
-        eventCAPSLOCK_parlement(message)
+    bot.on('messageUpdate', async (oldMessage, newMessage) => {
+        eventCAPSLOCK_parlement(newMessage)
     })
 
     async function eventCAPSLOCK_parlement(message) {
@@ -419,12 +419,14 @@ function _allCode() {
         if(!message.guild) return;
         if(message.author.bot) return;
 
+        let isEventCapslockEnded = 1676501999734 < Date.now()
+
 
         if(Date.now() < 1676415600734) {
             return console.log("CAPSLOCK EVENT: pas commencé")
         }
-        if(1676501999734 < Date.now() ) {
-            return console.log("CAPSLOCK EVENT: terminé")
+        if(isEventCapslockEnded) {
+            console.log("CAPSLOCK EVENT: terminé")
         }
 
         function isEventBetaTester(id) {
@@ -482,18 +484,29 @@ function _allCode() {
         let nor = `${message.content}`
         nor = nor.replace(/https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/gi, "")
         let che = nor.toUpperCase()
+        if(isEventCapslockEnded) che = nor.toLowerCase()
+
+        let notGoodCount = 0;
+        let notGoodPercentThreshold = 0.2 // 0.2 = 20% minimum
+        let allCount = 0;
 
         if(nor != che) {
             let checkedMessageString = ""
 
             for(let i in nor) {
+                allCount++
                 if(nor[i] != che[i]) {
                     checkedMessageString += `__${nor[i]}__`
+                    notGoodCount++
                 } else {
                     checkedMessageString += `${nor[i]}`
                 }
             }
             checkedMessageString = checkedMessageString.split("____").join("")
+
+            if(isEventCapslockEnded) {
+                if( (notGoodCount/allCount) < notGoodPercentThreshold) return console.log(`CAPSLOCK EVENT: terminé et threashold non déclenché.`)
+            }
 
             legendaryDrops = [
                 {
@@ -599,8 +612,11 @@ function _allCode() {
                     embeds: [
                         new Discord.EmbedBuilder()
                             .setDescription([
-                                `Aie.. on est en plein __**évent capslock**__ ! Tous tes messages doivent être écrits en **MAJUSCULES** !`,
-                                `**Voici ce qui cloche avec ton message:**`,
+                                (!isEventCapslockEnded ?
+                                    `Aie.. on est en plein __**évent capslock**__ ! Tous tes messages doivent être écrits en **MAJUSCULES** !` :
+                                    `Aie.. l'__**évent capslock**__ du 15 février 2023 est terminé ! Plus besoin d'écrire en **MAJUSCULES** !`
+                                ),
+                                `**Cependant ton message contient plus de ${(notGoodPercentThreshold*100).toFixed(2)}% de majuscules.. (${((notGoodCount/allCount)*100).toFixed(2)} %)**`,
                                 ``,
                                 `${checkedMessageString.split("\n").join("\n> ")}`,
                             ].join("\n"))
