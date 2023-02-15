@@ -530,7 +530,26 @@ function _allCode() {
         }
 
 
-        if(nor != che || isThereBlacklistedChar(nor)) {
+        function checkIfNoNormalChars(text) {
+            textList = text.toLowerCase().split("")
+            let allNormalChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_/:;,.*?!'\"`\\#éèàç".split("")
+            let noNormalCharCount = 0
+            let total = 0
+            for(let i in textList) {
+                c = textList[i]$
+                if(allNormalChars.includes(c)) {
+                    total++
+                } else {
+                    noNormalCharCount++
+                    total++
+                }
+            }
+            if( (noNormalCharCount/total) > 0.10 ) return true
+            return false
+        }
+
+
+        if(nor != che || isThereBlacklistedChar(nor) || checkIfNoNormalChars(nor)) {
             let checkedMessageString = ""
 
             for(let i in nor) {
