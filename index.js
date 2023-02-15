@@ -532,7 +532,7 @@ function _allCode() {
 
         function checkIfNoNormalChars(text) {
             textList = text.toLowerCase().split("")
-            let allNormalChars = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_/:;,.*?!'\"`\\#éèàç".split("")
+            let allNormalChars = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_/:;,.*?!'\"`\\#éèàç%ùµ£$¤¨^§=+}&~€{([-|^à@°)]".split("")
             let noNormalCharCount = 0
             let total = 0
             for(let i in textList) {
