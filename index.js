@@ -426,7 +426,7 @@ function _allCode() {
             return beta_testers.includes(id)
         }
 
-        if(!somef.isSuperAdmin(message.author.id) && !isEventBetaTester(message.author.id)) return;
+        //if(!somef.isSuperAdmin(message.author.id) && !isEventBetaTester(message.author.id)) return;
 
         if(message.guild.id != "1037794097894797442") return;
 
