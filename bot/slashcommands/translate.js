@@ -71,11 +71,28 @@ module.exports = {
             content: `Une erreur est survenue, impossible de récupérer le texte à traduire.`
         })
 
-        let axios_back = (await Modules.axios.post(`http://51.210.104.99:1841/translate`, {
-            from: from_language,
-            to: to_language,
-            text: texte_to_translate,
-        }))?.data
+
+        let axios_back;
+        try {
+            axios_back = (await Modules.axios.post(`http://51.210.104.99:1841/translate`, {
+                from: from_language,
+                to: to_language,
+                text: texte_to_translate,
+            }))?.data
+        } catch(e) {
+            await interaction.editReply({
+                embeds: [
+                    new Discord.EmbedBuilder()
+                        .setTitle(`Aie.. Impossible de se joindre le serveur`)
+                        .setColor("FF0000")
+                        .setDescription([
+                            `Le service est actuellement indisponible, impossible de procéder à la commande.`,
+                            `Erreur: \`\`\`js\n${e}\`\`\``,
+                        ].join("\n"))
+                ]
+            })
+            return;
+        }
 
         let translation = axios_back.response ?? "<erreur de traduction>"
 
