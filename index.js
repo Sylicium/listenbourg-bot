@@ -521,26 +521,63 @@ function _allCode() {
                 },
             }
 
+            legendaryDrops = [
+                {
+                    emoji: "🥧",
+                    fullname: "Tarte",
+                    drop: 0.005,
+                    rarity: "WHATTTTT?????",
+                    color: "FFF000",
+                },
+                {
+                    emoji: "⛔",
+                    fullname: "Panneau interdit",
+                    drop: 0.03,
+                    rarity: "Légendaire",
+                    color: "FFF000",
+                },
+                {
+                    emoji: "🚫",
+                    fullname: "Panneau circulaire",
+                    drop: 0.05,
+                    rarity: "Rare",
+                    color: "FA5000",
+                },
+                {
+                    emoji: "❕",
+                    fullname: "Point d'exclamation blanc",
+                    drop: 0.10,
+                    rarity: "Peu commun",
+                    color: "425AF5",
+                },
+                {
+                    emoji: "❗",
+                    fullname: "Point d'exclamation",
+                    drop: 0.25,
+                    rarity: "Commun",
+                    color: "FFFFFD",
+                },
+            ]
+
+            legendaryDrops.sort((a,b) => {
+                return a.drop-b.drop
+            })
+
             let isLegendaryDrop = false
             let legendaryDrop = undefined
-            let legendaryDropValue = Math.random()*100
-            if(legendaryDropValue < 0.5) {
-                isLegendaryDrop = true
-                legendaryDrop = legendaryDrops["1"]
-            } else if(legendaryDropValue < 3) {
-                isLegendaryDrop = true
-                legendaryDrop = legendaryDrops["2"]
-            } else if(legendaryDropValue < 5) {
-                isLegendaryDrop = true
-                legendaryDrop = legendaryDrops["3"]
-            } else if(legendaryDropValue < 10) {
-                isLegendaryDrop = true
-                legendaryDrop = legendaryDrops["4"]
-            } else if(legendaryDropValue < 25) {
-                isLegendaryDrop = true
-                legendaryDrop = legendaryDrops["5"]
+            let legendaryDropValue = Math.random()
+
+            for(let i in legendaryDrops) {
+                let d = legendaryDrops[i]
+                console.log("d:",d)
+                if(legendaryDropValue < d.drop) {
+                    isLegendaryDrop = true
+                    legendaryDrop = d
+                    break;
+                }
             }
 
+            console.log("drop:",legendaryDrop)
             
             if(legendaryDrop != undefined) {
                 message.react(`${legendaryDrop.emoji}`)
@@ -571,6 +608,11 @@ function _allCode() {
                                 {
                                     name: "Rareté",
                                     value: `${legendaryDrop.rarity}`,
+                                    inline: true
+                                },
+                                {
+                                    name: "Probabilité",
+                                    value: `**${(legendaryDrop.drop*100).toFixed(2)}** %`,
                                     inline: true
                                 }
                             ])
