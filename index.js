@@ -553,7 +553,7 @@ function _allCode() {
                 }
             }, (isLegendaryDrop ? 10*1000 : 3*1000) )
 
-            if(isLegendaryDrop && somef.isSuperAdmin(message.author.id)) {
+            if(isLegendaryDrop) {
                 message.author.send({
                     embeds: [
                         new Discord.EmbedBuilder()
