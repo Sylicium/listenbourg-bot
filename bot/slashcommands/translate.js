@@ -88,7 +88,7 @@ module.exports = {
                         .setColor("FF0000")
                         .setDescription([
                             `Le service est actuellement indisponible, impossible de procéder à la commande.`,
-                            `Erreur: \`\`\`js\n${e.replace(`51.210.104.99:1841`,"<SERVER ADDRESS>").replace(`51.210.104.99`,"<SERVER ADDRESS>")}\`\`\``,
+                            `Erreur: \`\`\`js\n${`${e}`.replace(`51.210.104.99:1841`,"<SERVER ADDRESS>").replace(`51.210.104.99`,"<SERVER ADDRESS>")}\`\`\``,
                         ].join("\n"))
                 ]
             })
