@@ -55,7 +55,7 @@ module.exports = {
         canBeDisabled: false,
         permisionsNeeded: {
             bot: ["SEND_MESSAGES","VIEW_CHANNEL"],
-            user: ["MANAGE_CHANNEL"]
+            user: ["MANAGE_CHANNELS"]
         },
         rolesNeeded: [],
         superAdminOnly: false,
