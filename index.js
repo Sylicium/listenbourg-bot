@@ -53,6 +53,7 @@ process
     });
 
 const Discord = require("discord.js")
+console.log("Discord.version:",Discord.version)
 const discordInv = require('discord-inv');
 let _normalize = require('normalize-strings');
 let Intents = Discord.Intents

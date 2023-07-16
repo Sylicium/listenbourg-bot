@@ -311,3 +311,31 @@ function parseHTMLpart(string) {
     let b = a.getElementsByClassName("ZojGHNZkjZOJzcAEJNGZACILkgjhazLCDigjhlibzdfcikbgzakCieeeeeeeeebdhbikhbfIZHKCDFikZAC")[0].firstChild
     return b
 }
+
+
+
+module.exports.isScam = isScam
+function isScam(text) {
+
+   let r = /(https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*))/gi
+
+    let links = text.match(r)
+
+    if(links == null | links.length == 0) return false
+
+    let blacklist = JSON.parse(fs.readFileSync("./localModules/suspicious-list.json")).domains
+    blacklist = blacklist.concat(JSON.parse(fs.readFileSync("./localModules/domain-list.json")).domains)
+    blacklist = blacklist.concat([
+        "dicsord.com",
+        "myglfts.com",
+    ])
+    
+    for(let i in blacklist) {
+        for(let link_i in links) {
+            if(links[link_i] in blacklist) return true
+            if(text.includes(blacklist[i])) return true
+            if(compareString(text, blacklist[i]) > 0.8) return true
+        }
+    }    
+    return false
+}
