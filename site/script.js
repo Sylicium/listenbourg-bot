@@ -416,12 +416,12 @@ function createNewDiscord_element(discord) {
     let messages_lastWeek_html = (
         (_formatTime(Date.now()-discord.settings.referencedAt, "DD").json.all_days > 7 || _DEVMODE ) ?
         `<span class="stat_messages_lastWeek info">${messages_lastWeekList.length}</span> msg les 7 derniers jours`
-        : ``
+        : `N/A No datas for last 7d`
     )
     let messages_lastMonth_html = (
         (_formatTime(Date.now()-discord.settings.referencedAt, "DD").json.all_days > 31 || _DEVMODE )?
         `<span class="stat_messages_lastMonth info">${messages_lastMonthList.length}</span> msg les 31 derniers jours`
-        : ``
+        : `N/A No datas for last 31d`
     )
 
 
