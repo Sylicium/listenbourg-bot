@@ -40,7 +40,7 @@ module.exports = {
         "770334301609787392", // dc
     ],
     website: {
-        url: "https://google.com"
+        url: "https://listenbourg.gouv.repl.co/"
     },
     emojis: {
         "loading": {
