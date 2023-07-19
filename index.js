@@ -176,6 +176,8 @@ function _allCode() {
 
     bot.commands = {}
     bot.commands.slashCommands = new Discord.Collection();
+    bot.commands.buttons = new Discord.Collection();
+    bot.commands.modals = new Discord.Collection();
 
     let SlashCommandsCollection = []
     
@@ -198,6 +200,53 @@ function _allCode() {
                 Logger.info(`✔ Successfully loaded command ${temp.commandInformations.commandDatas.name}`)
             } catch(e) {
                 Logger.warn(`❌ Failed loading command of file /slashcommands/${file}`,e)
+            }
+        }
+    });
+
+    fs.readdirSync("./bot/buttons").forEach(file => {
+        if(file.endsWith(".js")) {
+            try {
+                let fileName = file.split(".")
+                fileName.pop()
+                fileName.join(".")
+    
+                temp = require(`./bot/buttons/${fileName}`)
+                // ButtonsCollection.push({
+                //     buttonInformations: temp.buttonInformations,
+                //     require: temp
+                // });
+                bot.commands.buttons.set(temp.buttonInformations.customId, {
+                    buttonInformations: temp.buttonInformations,
+                    require: temp,
+                });
+                Logger.info(`✔ Successfully loaded button reply '${temp.buttonInformations.name}'`)
+            } catch(e) {
+                Logger.warn(`❌ Failed loading button reply of file /buttons/${file}`,e)
+            }
+        }
+    });
+    
+    
+    fs.readdirSync("./bot/modals").forEach(file => {
+        if(file.endsWith(".js")) {
+            try {
+                let fileName = file.split(".")
+                fileName.pop()
+                fileName.join(".")
+    
+                temp = require(`./bot/modals/${fileName}`)
+                // ModalsCollection.push({
+                //     modalInformations: temp.modalInformations,
+                //     require: temp
+                // });
+                bot.commands.modals.set(temp.modalInformations.customId, {
+                    modalInformations: temp.modalInformations,
+                    require: temp,
+                });
+                Logger.info(`✔ Successfully loaded modal submit reply '${temp.modalInformations.name}'`)
+            } catch(e) {
+                Logger.warn(`❌ Failed loading modal submit reply of file /modals/${file}`,e)
             }
         }
     });
@@ -387,23 +436,109 @@ function _allCode() {
     })
 
 
-    bot.on('interactionCreate', async interaction => {
+    /**
+     * Buttons
+     */
+    
+    bot.on("interactionCreate", async (interaction) => {
 
-        if (!interaction.isButton()) return;
-        
         if(!interaction.guild) return;
         if(interaction.user.bot) return;
 
-        interaction.guild.me_ = () => { return interaction.guild.members.cache.get(bot.user.id) }
+        if(!interaction.isButton()) return;
 
-        Logger.debug("Got interaction button: "+interaction)
+        console.log("button:",interaction)
+
+        //let data = await Database.getGuildDatas(interaction.guild.id)
+        let data = undefined
+
+        let btn = bot.commands.buttons.get(interaction.customId)
+
+        if(!btn) {
+            return interaction.reply({
+                content: ":x: Bouton inconnu. [code#B01]",
+                ephemeral: true
+            })
+        }
+
+        
+        
+        btn.require.execute(Modules, bot, interaction, data).catch(async err => {
+            Logger.warn(`Button crashed`,err)
+            let the_error_msg = {
+                content: "",
+                ephemeral: true,
+                embeds: [
+                    new Discord.EmbedBuilder()
+                        .setTitle(`:x: Woops, looks like the button event crashed.`)
+                        .setColor("FF0000")
+                        .setDescription(`\`\`\`js\n${err.stack}\`\`\``)
+                        .setFooter({ text: `This is a Debug message.` })
+                ]
+            }
+            try {
+                await interaction.reply(the_error_msg)
+            } catch(e) {
+                try {
+                    await interaction.editReply(the_error_msg)
+                } catch(err) {
+                    Logger.warn(err)
+                }
+            }
+        })
+
+    })
+
+    
+    /**
+     * Modals submit
+     */
+    bot.on("interactionCreate", async (interaction) => {
+
+        if(!interaction.guild) return;
+        if(interaction.user.bot) return;
+
+        if(!interaction.isModalSubmit()) return;
+
+        console.log("modal:",interaction)
 
         let data = await Database.getGuildDatas(interaction.guild.id)
 
+        let modal = bot.commands.modals.get(interaction.customId)
 
+        if(!modal) {
+            return interaction.reply({
+                content: ":x: Modal inconnu. [code#B01]",
+                ephemeral: true
+            })
+        }
+        
+        modal.require.execute(Modules, bot, interaction, data).catch(async err => {
+            Logger.warn(`Modal crashed`,err)
+            let the_error_msg = {
+                content: "",
+                ephemeral: true,
+                embeds: [
+                    new Discord.EmbedBuilder()
+                        .setTitle(`:x: Woops, looks like the modal submit crashed.`)
+                        .setColor("FF0000")
+                        .setDescription(`\`\`\`js\n${err.stack}\`\`\``)
+                        .setFooter({ text: `This is a Debug message.` })
+                ]
+            }
+            try {
+                await interaction.reply(the_error_msg)
+            } catch(e) {
+                try {
+                    await interaction.editReply(the_error_msg)
+                } catch(err) {
+                    Logger.warn(err)
+                }
+            }
+        })
 
-        //console.log(interaction);
-    });
+    })
+
 
 
 
@@ -417,6 +552,8 @@ function _allCode() {
     })
 
     async function eventCAPSLOCK_parlement(message) {
+
+        return; // ended
 
         if(!message.guild) return;
         if(message.author.bot) return;

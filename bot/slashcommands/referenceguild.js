@@ -125,7 +125,7 @@ module.exports.execute = async (Modules, bot, interaction, data, a,b,c,d,e,f,g,h
             if(i.customId == buttonID_discard) {
                 i.message.edit({
                     content: `${i.message.content}\n\n:x: Vous avez annulé le référencement.\n_Ce message sera supprimé dans 10s_`,
-                    components: [row]
+                    components: []
                 }).then(() => {
                     setTimeout(() => {
                         i.message.delete().catch(e => {})

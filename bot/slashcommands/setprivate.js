@@ -39,12 +39,6 @@ module.exports.execute = async (Modules, bot, interaction, data, a,b,c,d,e,f,g,h
 
     await interaction.deferReply()
 
-    let traitement_en_cours = `${config.emojis.loading.tag} Traitement de la demande en cours...`
-    let msg = await interaction.editReply(traitement_en_cours)
-    setTimeout(async () => {
-        if (msg.content == traitement_en_cours) await interaction.editReply(`${config.emojis.no.tag} La requête a pris trop de temps. Réessayez ultérieurement.`)
-    }, 60 * 1000)
-
     let guild_id = interaction.guild.id
 
     let isReferenced_guildMongoDbObject = await Modules.Database.isReferencedGuild(guild_id)
