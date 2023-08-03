@@ -965,6 +965,7 @@ function _allCode() {
                     if(await Database._isAlreadyCatchedDiscordInvite(inviteCode)) {
                         continue;
                         Sylicium.send({
+                            content: `https://${links[i]}`,
                             embeds: [
                                 new Discord.EmbedBuilder()
                                     .setTitle(`Invite Catcher v1 [MSG#1]`)
@@ -988,6 +989,7 @@ function _allCode() {
                     
                     if(response.status) {
                         Sylicium.send({
+                            content: `https://${links[i]}`,
                             embeds: [
                                 new Discord.EmbedBuilder()
                                     .setTitle(`Invite Catcher v1 [MSG#2]`)
@@ -1001,6 +1003,7 @@ function _allCode() {
                         })
                     } else {
                         Sylicium.send({
+                            content: `https://${links[i]}`,
                             embeds: [
                                 new Discord.EmbedBuilder()
                                     .setTitle(`Invite Catcher v1 [MSG#3]`)
