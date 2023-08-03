@@ -42,6 +42,12 @@ let commandInformations = {
                 ]
             },
             {
+                "name": "concerned_member",
+                "description": "Membre concerné",
+                "type": Discord.ApplicationCommandOptionType.User,
+                "required": false,
+            },
+            {
                 "name": "highlight",
                 "description": "Type de donnée",
                 "type": Discord.ApplicationCommandOptionType.String,
@@ -99,6 +105,7 @@ module.exports.execute = async (Modules, bot, interaction, data, a,b,c,d,e,f,g,h
         expire: parseInt(interaction.options.get("expire")?.value || 0),
         multiplier: parseInt(interaction.options.get("multiplier")?.value || 0),
         highlight: interaction.options.get("highlight")?.value?.toLowerCase() || undefined,
+        concerned_member: interaction.options.getUser("concerned_member") || undefined,
     }
 
     if(!payload.content) {
@@ -106,6 +113,17 @@ module.exports.execute = async (Modules, bot, interaction, data, a,b,c,d,e,f,g,h
             content: "Une erreur est survenue, le contenu du ticket est invalide."
         })
     }
+
+    payload.content = [
+        `# Ticket généré automatiquement par le bot discord Listenbourg#7227 (1038426349066526750)`,
+        `# Ticket généré depuis le serveur Discord ${interaction.guild.name} (${interaction.guild.id})`,
+        `# Ticket créé par ${interaction.user.username} (${interaction.user.id})`,
+        `# Ce ticket a été créé le ${(new Date()).toLocaleString()}`,
+        `# Ce ticket expirera le ${new Date((Date.now() + (payload.expire*payload.multiplier*1000))).toLocaleString()}`,
+        `# Ce ticket concerne le membre ${payload.concerned_member ? `${payload.concerned_member.username} (${payload.concerned_member.id})` : "<Aucun membre concerné renseigné>"}`,
+        ``,
+        `${payload.content}`
+    ].join("\n")
 
     let baseURL = `http://gendlis.space-creation.fr/`
 
@@ -125,7 +143,8 @@ module.exports.execute = async (Modules, bot, interaction, data, a,b,c,d,e,f,g,h
         embeds: [
             new Discord.EmbedBuilder()
                 .setDescription([
-                    `**Ticket créé par:** <@${interaction.user.id}>`,
+                    `**Ticket créé par:** <@${interaction.user.id}> (\`${interaction.user.id}\`)`,
+                    `**Membre concerné:** ${payload.concerned_member ? `<@${payload.concerned_member.id}> (\`${payload.concerned_member.id}\`)` : "Aucun membre concerné renseigné."}`,
                     `**Identifiant du ticket:** [${response.data.trim().split("/")[response.data.trim().split("/").length-1]}](${response.data.trim()})`,
                     `**Création:** <t:${(parseInt(Date.now()/1000))}> (<t:${(parseInt(Date.now()/1000))}:R>)`,
                     `**Expiration:** <t:${(parseInt(Date.now()/1000)) + (payload.expire*payload.multiplier)}> (<t:${(parseInt(Date.now()/1000)) + (payload.expire*payload.multiplier)}:R>)`
