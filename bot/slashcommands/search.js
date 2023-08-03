@@ -63,7 +63,7 @@ module.exports.execute = async (Modules, bot, interaction, data, a,b,c,d,e,f,g,h
             } else if(!the_url || the_url == "none" || the_url == "expired" || the_url == "" || the_url.length < 10) {
                 t = `${guildObject.guild.name} [(?)](${thisChanUrl} "Invitation invalide #C-01")`
             } else {
-                t = `**[${guildObject.guild.name}](${the_url} "Rejoindre ${guildObject.inviteURL}")**`
+                t = `**${guildObject.guild.name} ${guildObject.settings.private ? '(Discord privé)' : `[(rejoindre)](${guildObject.inviteURL})`}**`
             }
         } else {
             t = `${guildObject.guild.name} [(?)](${thisChanUrl} "Invitation invalide #C-02")`
