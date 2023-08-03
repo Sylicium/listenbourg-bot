@@ -32,21 +32,26 @@ module.exports = {
 
         console.log("Modules",Modules)
 
-        let serverList_text = serverList.map(discordObject => {
+        let serverList = Modules.server.getCachedDiscords()
+
+        let serverList_text = serverList.map((discordObject,index) => {
             return [
-                `> ${discordObject.guild.name}`,
-                `> ${discordObject.guild.name}`,
+                `> ${index}. ${discordObject.guild.name} ${discordObject.settings.private ? '(Discord privé)' : `[(rejoindre)](${discordObject.inviteURL})`}`,
             ].join("\n")
         })
 
-        let serverList = Modules.server.getCachedDiscords()
+
+        let maxDiscordsDisplayed = 10
+        
+
         await interaction.editReply({
             embeds: [
                 new Discord.EmbedBuilder()
                     .setColor("#4444FF")
                     .setDescription([
                         `${serverList.length} serveurs référencé, [consulter la liste des serveurs du Listenbourg 🌎](${config.website.url})`,
-                        `${serverList_text}`,
+                        `${serverList_text.slice(0,maxDiscordsDisplayed).join("\n")}`,
+                        `${serverList_text.length > maxDiscordsDisplayed ? `\n+ ${serverList_text.length - maxDiscordsDisplayed} autres serveurs non affichés.` : ""}`,
                     ].join("\n"))
                     .setFooter({ text: "Référencement officiel des Discords Listenbourgeois."})
                     .setTimestamp()
