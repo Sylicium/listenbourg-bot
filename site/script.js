@@ -431,7 +431,7 @@ function createNewDiscord_element(discord) {
         <div class="guild_informations">
             <div class="info">
                 <div class="guild_icon_div${discord.settings.isBotOnGuild ? "" : " not_added"}">
-                    <img class="guild_icon_img" src="${discord.guild.iconURL}"/>
+                    <img class="guild_icon_img" src="${discord.guild.iconURL}" onerror="this.src='https://cdn.discordapp.com/embed/avatars/1.png'"/>
                 </div>
             </div>
             <div class="info">
